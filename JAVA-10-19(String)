@@ -1,0 +1,133 @@
+package D01;
+
+import java.util.Arrays;
+
+public class d16 {
+	public static void main(String[] args) {
+		String str ="hello world!";
+		char[] arr =str.toCharArray();
+		System.out.println(Arrays.toString(arr));//字符数组
+		byte[] buf = {97,98,99};
+//		str =new String(buf);
+		System.out.println(str);
+		System.out.println(buf);//看不懂的内容
+		System.out.println(Arrays.toString(buf));//字节数组
+		
+//		System.out.println("替换的方法："+str.replace("world", "大家"));
+		
+		
+		//指定分隔符进行切割，用都好隔开
+		str = "哈喽-大家-下午好！";
+		String[] datas =str.split("-");
+		System.out.println(Arrays.toString(datas));
+		
+		//截取字符串长度
+		str ="hello world!";
+		System.out.println(str.substring(6));
+		System.out.println(str.substring(6, 8));//括号里面截取是按照前开后闭得原则
+		
+		//转大小写
+		str ="     Hello world     !             ";
+		System.out.println(str.toLowerCase());//转小写
+		System.out.println(str.toUpperCase());//转大写
+		
+//		去除首位得空格，不包括中间
+		System.out.println(str.trim());
+		//去掉中间空格 可以直接使用 替换
+		System.out.println(str.replace(" ", ""));
+		//假如自己定义一个函数的话》可以采用while循环语句，利用开始结尾空格索引
+		
+		//获取文件名
+		//F:\\学习视频\\JAVA\\基础班\\day13\\day13\\视频
+		//方式一：先按照\\进行切割，然后再截取最后一部分的字符串
+		//方式二：直接按照\\惊醒截取最后一部分字符串
+		String path ="F:\\学习视频\\JAVA\\基础班\\day13\\day13\\视频";
+		System.out.println("文件名："+getFileName(path));
+		
+		String str1 = "中国共产党";
+		System.out.println(reverse(str1));
+		
+		
+		//字符串的内容一旦创建，则不允许改变，如果一旦改变，则会创建一个新的字符串对象。 
+		//字符串的内容一般不要去随意的去修改，因为每一次修改都会创建一个新的字符串对象。
+		//一般要使用字符串缓冲区类》StringBuffer：存储字符的集合容器，
+		//主要作用是帮助我们修改字符串的内容
+		//在  要 前面加上一个不字
+		//注意：字符串没有专门设置增删的方法
+		//下面是我自己的做法
+		String str2 ="明天大家要上课";
+		System.out.println(str2.replace("要", "不要"));
+		
+		//下面是老师教的
+		//笔试题：
+		//使用StringBuffer无参的构造方法默认的初始化容量是多少？当容量不够用时会自动增长多少？
+		//答：StringBuffer的底层时维护了一个字符数组，存储字符的时候实际上是往该字符数组中存储的，
+		//而字符数组的初始化容量是16，当容量不够使用时，自动增长一倍（+2）。
+		
+		//既然StringBuffer是一个容器，应该少不了增、删、查、改 的方法
+		
+//		StringBuffer sb = new StringBuffer();//创建了这个容器，初始容量是16个字符
+		
+		//增
+		//StringBudder("jack")    在创建对象的时候赋值
+		//append() 				  在缓冲区的尾部添加新得文本对象
+		//insert() 				 在指定的下标位置添加新的文本对象
+		//删
+		//delete(int start,int end)   移除此序列的子字符串中的字符
+		//StringBuffer deleteCharAt(int index)   指定索引值，删除字符
+		//查
+		//toString()          返回这个容器的字符串
+		//indexOf(String str)	返回第一次出现的指定子字符串在该字符串中的索引
+		//substring(int start)  从开始的位置开始截取字符串
+		//改
+		//replace(int start int endString str)
+		//使用给定String中的字符替换此序列的字符串中的字符，从start开始
+		//setCharAt(int index char ch)   指定索引位置替换一个字符
+		
+		StringBuffer sb =new StringBuffer("hello world！");
+		//append		可以添加任何类型的数据
+		sb.append("狗娃");
+		sb.append(true);
+		sb.append(3.14);
+		//insert插入方法
+		sb.insert(5," my");
+		//删除的方法
+		sb.delete(5, 8);//同样的，左开右闭
+		
+		String content =sb.toString();
+		System.out.println("字符串的内容："+content);
+		System.out.println("字符串缓冲区的内容："+sb);
+		
+		
+		
+		
+		
+		
+		
+	}
+	
+	public static String getFileName(String path) {
+//		String a =new String(path.split("\\"));//多此一举，但是如何转呢
+		
+		System.out.println(path);
+		int index =path.lastIndexOf("\\");
+		String fileName =path.substring(index+1);
+		return fileName;
+	}
+	
+	public static String reverse(String str1) {
+		char [] buf =str1.toCharArray();
+		int firstIndex =0;
+		int lastIndex =buf.length-1;
+		while(firstIndex<lastIndex) {
+			char temp =buf[firstIndex];
+			buf[firstIndex] =buf[lastIndex];
+			buf[lastIndex] =temp;
+			firstIndex++;
+			lastIndex--;
+			
+		}
+//		String a =String(buf);
+		return new String(buf);//使用字符数组构建了字符串
+	}
+}
